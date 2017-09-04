@@ -1,0 +1,93 @@
+npm install vue  安装vue
+npm install -g vue-cli 安装脚手架工具
+vue init webpack myproject 创建项目
+npm install 安装依赖 在根目录下
+npm run dev 启动项目
+****************************************
+mock数据（模拟后台数据）：
+1/自己造数据  ｛"":"","":[]｝,
+2/在dev-server.js 文件内var erpressvar app = express()下
+//模拟数据-《
+
+var appData = require('../data.json');
+var seller = appData.seller;
+
+var goods = appData.goods;
+var ratings = appData.ratings;
+
+//定义一个路由
+
+var apiRoutes = express.Router();
+
+//通过路由读取数据
+    
+apiRoutes.get('/seller',function(req,res){
+        res.json({
+            errno:0,
+            seller:seller
+        });
+    });
+    apiRoutes.get('/goods',function(req,res){
+        res.json({
+          errno:0,
+          goods:goods
+        })
+    });
+    apiRoutes.get('/ratings',function(req,res){
+        res.json({
+          errno:0,
+          goods:ratings
+        })
+    });
+express.use('/api',apiRoutes); //调用express的use对象
+
+//模拟数据-》
+****************************************
+
+****************************************
+异步数据传输
+安装npm install axios -save
+在需要用的地方 improt进来
+然后在 created() {
+   axios.get('/api/goods')
+     .then(reponse)=>{
+        this.seller = reponse.data.data
+     }
+}
+****************************************
+关于sass 预编译
+
+
+cnpm install node-sass sass-loader --save-dev  (实验了很多次失败额 结果就是用cnpm安装)
+
+如果想使用sass语法还需要修改webpack.base.conf.js
+{
+test: /\.(css|scss)$/,
+loader: "style-loader!css-loader!!sass-loader"
+}
+
+extensions:[".vue",".js",".json",".jsx",".css",".scss"]
+****************************************
+
+异步传输
+HttpServletResponse response = ServletActionContext.getResponse();
+		response.setHeader("Access-Control-Allow-Origin","*");
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = null;
+		try {
+			out=response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+
+模拟异步传输方法：
+proxyTable: {      
+'/api': {   
+  target: 'https://bird.ioliu.cn/v1', // 这里是网上常用的一个地址可以通过异步返回数据
+  changeOrigin: true, // 如果本身的接口地址就有 '/api' 这种通用前缀，就可以把 pathRewrite 删掉
+  pathRewrite: {
+    '^/api': '/'
+  }
+ 

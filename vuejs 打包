@@ -1,0 +1,59 @@
+项目做好以后
+1、修改main.js，添加vue-cordova插件： 
+import VueCordova from 'vue-cordova'
+
+
+Vue.use(VueCordova);
+
+2.config/index.js中，
+assetsPublicPath改为“” 
+
+3、下载jdk，安装JAVA环境，配置系统环境。网上都有教程
+
+打开cmd命令行，运行npm install -g cordova，全局安装cordova。
+
+测试是否安装好了cordova，继续在命令行里输入cordova -v,检查cordova版本号，如果有版本信息则说明已成功安装cordova。
+
+新建cordova项目 cordova create folderName  **********看这里
+
+进入新建cordova项目的文件夹 cd folderName   **********看这里
+
+新建android项目cordova platform add android   **********看这里
+
+新建ios项目cordova platform add ios
+
+folderName目录下有一个www文件夹，里面放自己项目里的html、js、css、image文件。 **********看这里
+
+将代码包成apk文件cordova build
+
+数据线将手机连接至电脑，手机打开USB调试模式。输入命令cordova run android –service可在手机上安装安卓程序包，进行项目预览和调试。
+
+4、打包release发布版在项目根目录下执行
+  1） cordova build android   生成debug 版本
+  2） cordova build android --release --prod --device  生成正式版未签名
+
+5、签名
+****生成签名(.keystore)文件******
+->.在\platforms\android 下执行
+keytool -genkey -alias demo.keystore -keyalg RSA -validity 40000 -keystore demo.keystore
+/*说明：-genkey 产生密钥
+       -alias demo.keystore 别名 demo.keystore
+       -keyalg RSA 使用RSA算法对签名加密
+       -validity 40000 有效期限4000天
+       -keystore demo.keystore */
+****签名apk******
+5.在\platforms\android 下执行（把第4步的未签名APK也复制到本目录下）
+jarsigner -verbose -keystore demo.keystore -signedjar demo_signed.apk android-release-unsigned.apk demo.keystore
+
+我建的都是6个1密钥
+
+如果没有配置签名文件则默认只生成android-release-unsigned.apk，没有签名的apk。release版本是必须有签名才能在手机上运行。
+
+
+
+
+**************修改启动图标和开场图片****************
+1.根目录-》resources  替换2涨图片
+2.根目录执行ionic resources  这时会在根目录resources下生成各种大小名字的图片把名字记住
+3.复制对应的\platforms\android\res 的文件夹内 
+5.重新打包

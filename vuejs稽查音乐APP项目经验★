@@ -59,3 +59,44 @@
   listview
   逻辑组件
   ……
+  
+  6、项目打包————————————————————————————————————————
+      1、npm install -g cordova
+      2、cordova create cordovaApp com.cordova.testapp
+	 cd cordovaApp
+	 cordova platform add android
+      3、首先修改vue项目的index.html在head之间加入
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	这里注意加入<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">这个的时候可能导致页面样式改变，如果改变则不加，否则还是建议加上。
+	然后引入cordova.js
+	<body>
+	    <div id="app"></div>
+	    <script type="text/javascript" src="cordova.js"></script>
+	    <!-- built files will be auto injected -->
+	</body>
+       4、然后修改src中的main.js为以下代码 // 不执行也可以
+	// The Vue build version to load with the `import` command
+	// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+	import Vue from 'vue'
+	import App from './App'
+	import router from './router'
+	Vue.config.productionTip = false
+
+	/* eslint-disable no-new */
+	document.addEventListener('deviceready', function() {
+	    new Vue({
+		el: '#app',
+		router,
+		store,
+		template: '<App/>',
+		components: { App }
+	    })
+	    window.navigator.splashscreen.hide()
+	}, false);
+	最后修改config文件夹中的index.js文件 修改build中的assetsSubDirectory: 'static', assetsPublicPath: '',
+      5、 vue项目   npm run build        
+      6、 将vue文件放到cordova项目把dist中所有文件复制到WWW文件下并且内容且替换
+      7、 替换cordova项目www文件后  cordova build android   生成apk

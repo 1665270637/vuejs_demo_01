@@ -82,8 +82,14 @@ npm uninstall -g cordova ionic
 .两种打包的版本  java -version检查java版本
 一种是debug调试版，一种是release发布版
 打包debug调试版
-1、构建平台  ionic platform add android     在项目根目录会生成\platforms 这个文件夹
-   ionic platform rm android移除平台 平台大概20M迁移项目时候需要删掉）
+1、构建平台
+    ionic cordova platform
+    ionic cordova platform add ios
+    ionic cordova platform add android
+    ionic cordova platform rm ios
+    
+   ionic cordova platform add android     在项目根目录会生成\platforms 这个文件夹
+   ionic cordova platform rm android移除平台 平台大概20M迁移项目时候需要删掉）
 2、在工程目录下执行ionic build android，生成的apk就是debug调试版本
 3、ionic run android ionic run ios 在模拟器上运行
 

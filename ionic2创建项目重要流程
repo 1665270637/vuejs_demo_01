@@ -90,7 +90,7 @@ npm uninstall -g cordova ionic
     
    ionic cordova platform add android     在项目根目录会生成\platforms 这个文件夹
    ionic cordova platform rm android移除平台 平台大概20M迁移项目时候需要删掉）
-2、在工程目录下执行ionic build android，生成的apk就是debug调试版本
+2、在工程目录下执行ionic build android，ionic cordova build android 生成的apk就是debug调试版本
 3、ionic cordova run android  在模拟器上运行★★★★★
 4、ionic cordova run ios   在模拟器上运行★★★★★
 

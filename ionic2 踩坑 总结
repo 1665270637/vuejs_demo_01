@@ -1,0 +1,20 @@
+1、Error: Cannot find module @ionic\app-scripts'
+    npm install @ionic/app-scripts@latest --save-dev
+    
+2、ionic build android (或cordova build android)
+    报错：Error: Could not find an installed version of Gradle either in Android Studio,
+    or on your system to install the gradle wrapper. Please include gradle
+    in your path, or install Android Studio
+    
+    1、手动下载gradle
+        gradle-x.x-bin.zip （x.x代表版本） 
+        根据需要下载某一版本 
+        地址： 
+        (https://services.gradle.org/distributions)
+
+     2、添加环境变量
+         PATH=C:\Program Files\gradle-x.x\bin
+        
+     3、关闭cmd或powershell窗口
+     4、重新打开，输入gradle -v，查看gradle安装成功与否
+     5、重新build

@@ -1,5 +1,5 @@
 1、ionic2/ionic3禁止屏幕旋转，及解除禁止旋转
-    cordova plugin add cordova-plugin-screen-orientation
+    cordova plugin add cordova-plugin-screen-orientation      实在不行就用git命令窗口安装
     import { Component } from '@angular/core';
     import { Platform } from 'ionic-angular';
     import { StatusBar } from '@ionic-native/status-bar';

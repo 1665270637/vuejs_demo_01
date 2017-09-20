@@ -35,3 +35,33 @@
         });
       }
     }
+    
+    
+ ____________________________________________________________________________________
+ 
+ 2、状态栏透明方法一
+ 
+    http://www.jianshu.com/p/4c283e37294f
+    
+    第一步: 在platforms/android/src/../../MainActivity.java路径下MainActivity.java() 中的super.onCreate() 函数后添加如下代码:
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+       getWindow().getDecorView().setSystemUiVisibility(
+           View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+           View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        }
+        不要忘了在MainActivity.java 中导入依赖包:
+        import android.os.Build;
+        import android.view.View;
+        
+    第二步:在项目根目录的config.xml文件中添加下面配置，这里需要注意
+        颜色的设置至关重要，此处是八位hex color，前两位是透明度，后六位是RGB颜色值．可以根据自己的需要配置．
+        <preference name="StatusBarBackgroundColor" value="#551b1d23" />
+        
+    第三步: 在app.scss中添加样式
+        .platform-android {
+            ion-header {
+              padding-top: $cordova-md-statusbar-padding;
+              background-color: color($colors, primary);
+            }
+        }
